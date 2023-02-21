@@ -118,6 +118,22 @@
         <jacoco.branch.coverage.percentage>0.0</jacoco.branch.coverage.percentage>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>my Nexus</name>
+            <url>http://172.19.0.2:8081/repository/my-maven-test/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>my Nexus</name>
+            <url>http://172.19.0.2:8081/repository/my-maven-test/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <build>
         <pluginManagement>
             <plugins>
