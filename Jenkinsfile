@@ -22,6 +22,14 @@ pipeline {
                 '''
             }
         }
+        stage('Test') {
+            steps {
+                echo "Testing..."
+                sh '''
+                mvn clean test -Dpackage.phoenix.client -Dphoenix.version=5.1.3-TDP-0.1.0-SNAPSHOT -Dphoenix.client.artifactid=phoenix-client-hbase-2.1 -pl '!phoenix-queryserver-it' --fail-never
+                '''
+            }
+        }
         stage("Publish to Nexus Repository Manager") {
             steps {
                 echo "Deploy..."
