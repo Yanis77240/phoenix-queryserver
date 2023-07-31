@@ -26,7 +26,9 @@ podTemplate(containers: [
                 echo "Testing..."
                 withEnv(["number=${currentBuild.number}"]) {
                     withCredentials([usernamePassword(credentialsId: '4b87bd68-ad4c-11ed-afa1-0242ac120002', passwordVariable: 'pass', usernameVariable: 'user')]) {
-                        sh 'mvn clean test -Dpackage.phoenix.client -Dphoenix.version=5.1.3-TDP-0.1.0-SNAPSHOT -Dphoenix.client.artifactid=phoenix-client-hbase-2.1 -pl '!phoenix-queryserver-it' --batch-mode -Dsurefire.rerunFailingTestsCount=3 --fail-never'
+                        sh '''
+                        mvn clean test -Dpackage.phoenix.client -Dphoenix.version=5.1.3-TDP-0.1.0-SNAPSHOT -Dphoenix.client.artifactid=phoenix-client-hbase-2.1 -pl '!phoenix-queryserver-it' --batch-mode -Dsurefire.rerunFailingTestsCount=3 --fail-never
+                        '''
                         sh 'mvn surefire-report:report-only  -Daggregate=true'
                         sh 'curl -v -u $user:$pass --upload-file target/site/surefire-report.html http://10.110.4.212:8081/repository/test-reports/phoenix-queryserver/surefire-report-${number}.html'
                     }
